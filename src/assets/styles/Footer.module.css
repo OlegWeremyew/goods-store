@@ -8,6 +8,7 @@
 
 .logo {
   width: 61px;
+  cursor: pointer;
 }
 
 .logo a {

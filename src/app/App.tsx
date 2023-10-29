@@ -4,15 +4,17 @@ import {Footer} from "@/components/Footer/Footer";
 import '@/assets/styles/index.css'
 import {Sidebar} from "@/components/Sidebar/Sidebar";
 import {useEffect} from "react";
-import {instance} from "@/api";
+import {getCategories} from "@/store/categories/categoriesSlice";
+import {useAppDispatch} from "@/store";
+import {getProducts} from "@/store/products/productsSlice";
 
 export function App() {
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-    instance('/categories').then(({data})=>{
-      console.log({data})
-    });
-  }, [])
+    dispatch(getCategories())
+    dispatch(getProducts())
+  }, [dispatch])
   return (
     <div className="app">
       <Header/>

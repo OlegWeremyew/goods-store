@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import {ChangeEvent, useState} from 'react';
 import styles from '@/assets/styles/Header.module.css'
 import {Link} from "react-router-dom";
 import {ROUTES} from "@/utils/routes";

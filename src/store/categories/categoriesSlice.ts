@@ -1,26 +1,19 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {AxiosError} from 'axios'
 import {instance} from "@/api";
+import type {CategoryItem} from "@/types";
 
-type ListItem = {
-  "id": number,
-  "name": string,
-  "image": string,
-  "creationAt": string,
-  "updatedAt": string
-}
-
-type DefaultStateType = {
+type DefaultCategoriesStateType = {
   isLoading: boolean
-  list: ListItem[]
+  list: CategoryItem[]
 }
 
 export const getCategories = createAsyncThunk(
   "categories/getCategories",
   async (_, thunkAPI) => {
     try {
-      const res = await instance('/categories');
-      return res.data;
+      const {data} = await instance('/categories');
+      return data;
     } catch (err: AxiosError) {
       console.log(err);
       return thunkAPI.rejectWithValue(err);
@@ -28,7 +21,7 @@ export const getCategories = createAsyncThunk(
   }
 );
 
-const defaultState: DefaultStateType = {
+const defaultState: DefaultCategoriesStateType = {
   isLoading: false,
   list: [],
 }
