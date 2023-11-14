@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {ROUTES} from "@/utils/routes";
 import styles from "@/assets/styles/Product.module.css";
 import {useAppDispatch} from "@/store";
+import {addItemToCard} from "@/store/user/userSlice";
 
 const SIZES: number[] = [4, 4.5, 5];
 
@@ -13,9 +14,9 @@ interface ProductProps {
   description: string
 }
 
-export const Product: FC<ProductProps> = (
-  {title, price, images, description}
-) => {
+export const Product: FC<ProductProps> = (item) => {
+
+  const {title, price, images, description} = item
 
   const dispatch = useAppDispatch();
 
@@ -29,7 +30,7 @@ export const Product: FC<ProductProps> = (
   }, [images]);
 
   const addToCart = (): void => {
-    //dispatch(addItemToCart(item));
+    dispatch(addItemToCard(item));
   };
 
   return (

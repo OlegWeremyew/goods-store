@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AxiosError} from 'axios'
 import {instance} from "@/api";
 import {ProductType} from "@/types";
+import {shuffle} from "@/utils/common";
 
 type DefaultProductsStateType = {
   list: ProductType[],
@@ -14,7 +15,7 @@ export const getProducts = createAsyncThunk(
   "products/getProducts",
   async (_, thunkAPI) => {
     try {
-      const {data} = await instance('/products');
+      const {data} = await instance.get('/products');
       return data;
     } catch (err: AxiosError) {
       console.log(err);
@@ -37,7 +38,10 @@ const productsSlice = createSlice({
     filterByPrice(state, action: PayloadAction<number>) {
       state.filtered = state.list.filter(({price}) => price < action.payload)
     },
-
+    getRelatedProducts(state, {payload}: PayloadAction<{id: number}>) {
+      const list = state.list.filter(({category: {id}}) => id === payload.id)
+      state.related = shuffle(list)
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getProducts.pending, (state: DefaultProductsStateType) => {
@@ -55,6 +59,7 @@ const productsSlice = createSlice({
 
 export const {
   filterByPrice,
+  getRelatedProducts,
 } = productsSlice.actions
 
 export default productsSlice.reducer;

@@ -10,6 +10,7 @@ export const SingleProduct = () => {
   const dispatch = useAppDispatch();
   const {id} = useParams();
   const navigate = useNavigate();
+
   const {list, related} = useAppSelector(({products}: RootState) => products);
 
   const {data, isLoading, isFetching, isSuccess} = useGetProductQuery({id});

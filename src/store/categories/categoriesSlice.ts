@@ -12,7 +12,7 @@ export const getCategories = createAsyncThunk(
   "categories/getCategories",
   async (_, thunkAPI) => {
     try {
-      const {data} = await instance('/categories');
+      const {data} = await instance.get('/categories');
       return data;
     } catch (err: AxiosError) {
       console.log(err);
